@@ -1,7 +1,7 @@
 import MovieCard from '@/components/MovieCard'
 import { getMovies } from '@/lib/movieApi'
 import './globals.css'
-import Search from '@/components/SearchWithButton'
+import Search from '@/components/SearchWithButtonAndEnter'
 
 // http://localhost:3000
 // http://localhost:3001/?title=crazy
