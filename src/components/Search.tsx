@@ -28,8 +28,8 @@ const Search = () => {
     // the URL is updated to /?love if input: love
   }
 
-  const handleSearch = useDebouncedCallback(handleSearch2, 600)
-  // only run the code after a specific time once the user has stopped typing (600ms).
+  const handleSearch = useDebouncedCallback((term) => handleSearch2(term), 1000)
+  // only run the code after a specific time once the user has stopped typing (1000ms).
   // By debouncing, you can reduce the number of requests sent to the api, thus saving resources.
 
   return (

@@ -1,10 +1,10 @@
 import MovieCard from '@/components/MovieCard'
 import { getMovies } from '@/lib/movieApi'
 import './globals.css'
-import Search from '@/components/SearchWithButtonAndEnter'
+import Search from '@/components/Search'
 
 // http://localhost:3000
-// http://localhost:3001/?title=crazy
+// http://localhost:3000/?title=crazy
 
 type Props = {
   searchParams?: {
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const HomePage = async ({ searchParams }: Props) => {
-  const title = searchParams?.title
+  const title = searchParams?.title ?? 'science'
 
   // const data = await getMovies(title)
   // const movies = data.Search

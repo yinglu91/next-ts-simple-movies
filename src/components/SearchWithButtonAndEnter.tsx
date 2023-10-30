@@ -18,7 +18,7 @@ const SearchWithButtonAndEnter = () => {
 
   const searchMovies = () => {
     const params = new URLSearchParams(searchParams)
-    // URLSearchParams - Web API use to get params string like 'page=1&query=a'
+    // URLSearchParams - Web API use to get params string like 'title=game'
 
     if (title) {
       params.set('title', title)
@@ -28,12 +28,6 @@ const SearchWithButtonAndEnter = () => {
 
     const newUrl = `${pathname}?${params.toString()}`
     replace(newUrl)
-  }
-
-  const handleClick = () => {
-    console.log(`on click, Searching title... ${title}`)
-
-    searchMovies()
   }
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -59,7 +53,7 @@ const SearchWithButtonAndEnter = () => {
         alt={`search picture`}
         width={28}
         height={28}
-        onClick={handleClick}
+        onClick={searchMovies}
       />
     </div>
   )

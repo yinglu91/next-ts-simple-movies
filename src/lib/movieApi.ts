@@ -4,7 +4,7 @@ type ResponseType = {
     Search: MovieType[]
   }
 
-export const getMovies = async (title = 'war'): Promise<ResponseType> => {
+export const getMovies = async (title: string): Promise<ResponseType> => {
   const url = `${API_URL}&s=${title}`
   
   console.log(`url=${url}`)
