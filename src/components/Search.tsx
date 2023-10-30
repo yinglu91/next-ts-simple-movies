@@ -9,6 +9,8 @@ const Search = () => {
   const pathname = usePathname() // '/'
   const { replace } = useRouter()
 
+  const defaultTitle = searchParams.get('title')?.toString() || ''
+
   const handleSearch2 = (term: string) => {
     console.log(`Searching... ${term}`)
 
@@ -43,7 +45,7 @@ const Search = () => {
       <input
         placeholder='Search for movies with title'
         onChange={(event) => handleSearch(event.target.value)}
-        defaultValue={searchParams.get('title')?.toString()}
+        defaultValue={defaultTitle}
       />
     </div>
   )
