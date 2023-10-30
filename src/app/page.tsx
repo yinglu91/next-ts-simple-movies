@@ -1,9 +1,10 @@
 import MovieCard from '@/components/MovieCard'
 import { getMovies } from '@/lib/movieApi'
 import './globals.css'
-import Search from '@/components/SearchWithEnter'
+import Search from '@/components/SearchWithButton'
 
 // http://localhost:3000
+// http://localhost:3001/?title=crazy
 
 type Props = {
   searchParams?: {
