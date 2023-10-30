@@ -1,5 +1,5 @@
 import { getMovies } from '@/lib/movieApi'
-import Search from '@/components/SearchWithButtonAndEnter'
+import Search from '@/components/SearchWithButton'
 import Pagination from '@/components/Pagination'
 import MovieList from '@/components/MovieList'
 import './globals.css'

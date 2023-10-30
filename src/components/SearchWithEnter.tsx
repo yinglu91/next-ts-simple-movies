@@ -2,32 +2,25 @@
 
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState, ChangeEvent, KeyboardEvent } from 'react'
+import { KeyboardEvent, useRef } from 'react'
 
 const SearchWithEnter = () => {
   const searchParams = useSearchParams()
   const pathname = usePathname() // '/'
   const { replace } = useRouter()
 
+  const inputRef = useRef<HTMLInputElement>(null)
   const defaultTitle = searchParams.get('title')?.toString() || ''
-  const [title, setTitle] = useState(defaultTitle)
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
-  }
+  console.log(`YYYYYLLLL, title=${inputRef.current?.value}`)
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== 'Enter') {
-      return
-    }
-
-    console.log(`on Enter, Searching title... ${title}`)
-
+  const searchMovies = () => {
     const params = new URLSearchParams(searchParams)
     // URLSearchParams - Web API use to get params string like 'page=1&title=war'
 
     params.set('page', '1')
 
+    const title = inputRef.current?.value
     if (title) {
       params.set('title', title)
     } else {
@@ -35,7 +28,17 @@ const SearchWithEnter = () => {
     }
 
     const newUrl = `${pathname}?${params.toString()}`
+
+    console.log('newUrl=', newUrl) // 'newUrl= /?page=1&title=game' when input 'game', then hit Enter/Click search icon.
     replace(newUrl)
+  }
+
+  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== 'Enter') {
+      return
+    }
+
+    searchMovies()
   }
 
   return (
@@ -50,7 +53,7 @@ const SearchWithEnter = () => {
 
       <input
         placeholder='Search for movies with title'
-        onChange={handleChange}
+        ref={inputRef}
         onKeyUp={handleKeyUp}
         defaultValue={defaultTitle}
       />

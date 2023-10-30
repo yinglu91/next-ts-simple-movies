@@ -2,21 +2,17 @@
 
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState, ChangeEvent, KeyboardEvent } from 'react'
+import { KeyboardEvent, useRef } from 'react'
 
 const SearchWithButtonAndEnter = () => {
   const searchParams = useSearchParams()
   const pathname = usePathname() // '/'
   const { replace } = useRouter()
 
+  const inputRef = useRef<HTMLInputElement>(null)
   const defaultTitle = searchParams.get('title')?.toString() || ''
-  const [title, setTitle] = useState(defaultTitle)
 
-  console.log(`YYYYY, title... ${title}`)
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
-  }
+  console.log(`YYYYYLLLL, title=${inputRef.current?.value}`)
 
   const searchMovies = () => {
     const params = new URLSearchParams(searchParams)
@@ -24,6 +20,7 @@ const SearchWithButtonAndEnter = () => {
 
     params.set('page', '1')
 
+    const title = inputRef.current?.value
     if (title) {
       params.set('title', title)
     } else {
@@ -31,13 +28,9 @@ const SearchWithButtonAndEnter = () => {
     }
 
     const newUrl = `${pathname}?${params.toString()}`
+
+    console.log('newUrl=', newUrl) // 'newUrl= /?page=1&title=game' when input 'game', then hit Enter/Click search icon.
     replace(newUrl)
-  }
-
-  const handleClick = () => {
-    console.log(`on click, Searching title... ${title}`)
-
-    searchMovies()
   }
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -52,7 +45,7 @@ const SearchWithButtonAndEnter = () => {
     <div className='search'>
       <input
         placeholder='Search for movies with title'
-        onChange={handleChange}
+        ref={inputRef}
         onKeyUp={handleKeyUp}
         defaultValue={defaultTitle}
       />
@@ -63,7 +56,7 @@ const SearchWithButtonAndEnter = () => {
         alt={`search picture`}
         width={28}
         height={28}
-        onClick={handleClick}
+        onClick={searchMovies}
       />
     </div>
   )
