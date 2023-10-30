@@ -1,24 +1,40 @@
-import MovieCard from '@/components/MovieCard'
 import { getMovies } from '@/lib/movieApi'
-import './globals.css'
 import Search from '@/components/SearchWithButtonAndEnter'
+import Pagination from '@/components/Pagination'
+import MovieList from '@/components/MovieList'
+import './globals.css'
+
+const ITEMS_PER_PAGE = 10
 
 // http://localhost:3000
-// http://localhost:3001/?title=crazy
+// http://localhost:3001/?page=1&title=dollar
 
 type Props = {
   searchParams?: {
     title?: string
+    page?: string
   }
 }
 
 const HomePage = async ({ searchParams }: Props) => {
-  const title = searchParams?.title
+  // const title = searchParams?.title || 'war'
+  const title = searchParams?.title ?? 'war'
 
-  // const data = await getMovies(title)
-  // const movies = data.Search
+  // let title: string
+  // if (searchParams?.title) {
+  //   title = searchParams?.title
+  // } else {
+  //   title = 'war'
+  // }
+  ////
 
-  const { Search: movies } = await getMovies(title)
+  const currentPage = Number(searchParams?.page || '1')
+
+  const data = await getMovies(title, currentPage)
+  const totalMovies = data.totalResults || 0
+  const movies = data.Search || []
+
+  const totalPages = Math.ceil(totalMovies / ITEMS_PER_PAGE)
 
   return (
     <div className='app'>
@@ -26,20 +42,9 @@ const HomePage = async ({ searchParams }: Props) => {
 
       <Search />
 
-      {movies?.length > 0 ? (
-        <div className='container'>
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.imdbID}
-              movie88={movie}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className='empty'>
-          <h2>No movies found</h2>
-        </div>
-      )}
+      {totalMovies > 10 && <Pagination totalPages={totalPages} />}
+
+      <MovieList movies={movies} />
     </div>
   )
 }

@@ -15,7 +15,9 @@ const Search = () => {
     console.log(`Searching... ${term}`)
 
     const params = new URLSearchParams(searchParams)
-    // URLSearchParams - Web API use to get params string like 'page=1&query=a'
+    // URLSearchParams - Web API use to get params string like 'page=1&title=war'
+
+    params.set('page', '1')
 
     if (term) {
       params.set('title', term)

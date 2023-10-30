@@ -24,7 +24,9 @@ const SearchWithEnter = () => {
     console.log(`on Enter, Searching title... ${title}`)
 
     const params = new URLSearchParams(searchParams)
-    // URLSearchParams - Web API use to get params string like 'page=1&query=a'
+    // URLSearchParams - Web API use to get params string like 'page=1&title=war'
+
+    params.set('page', '1')
 
     if (title) {
       params.set('title', title)

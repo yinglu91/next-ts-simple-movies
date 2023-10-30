@@ -12,13 +12,17 @@ const SearchWithButtonAndEnter = () => {
   const defaultTitle = searchParams.get('title')?.toString() || ''
   const [title, setTitle] = useState(defaultTitle)
 
+  console.log(`YYYYY, title... ${title}`)
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value)
   }
 
   const searchMovies = () => {
     const params = new URLSearchParams(searchParams)
-    // URLSearchParams - Web API use to get params string like 'page=1&query=a'
+    // URLSearchParams - Web API use to get params string like 'page=1&title=war'
+
+    params.set('page', '1')
 
     if (title) {
       params.set('title', title)
