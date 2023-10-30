@@ -27,7 +27,8 @@ const SearchWithButton = () => {
       params.delete('title')
     }
 
-    replace(`${pathname}?${params.toString()}`)
+    const newUrl = `${pathname}?${params.toString()}`
+    replace(newUrl)
   }
 
   return (

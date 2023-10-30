@@ -15,9 +15,10 @@ type Props = {
 const HomePage = async ({ searchParams }: Props) => {
   const title = searchParams?.title
 
-  const data = await getMovies(title)
+  // const data = await getMovies(title)
+  // const movies = data.Search
 
-  const movies = data.Search
+  const { Search: movies } = await getMovies(title)
 
   return (
     <div className='app'>

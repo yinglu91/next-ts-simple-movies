@@ -20,7 +20,7 @@ const SearchWithEnter = () => {
       return
     }
 
-    console.log(`Searching title... ${title}`)
+    console.log(`on Enter, Searching title... ${title}`)
 
     const params = new URLSearchParams(searchParams)
     // URLSearchParams - Web API use to get params string like 'page=1&query=a'
@@ -31,7 +31,8 @@ const SearchWithEnter = () => {
       params.delete('title')
     }
 
-    replace(`${pathname}?${params.toString()}`)
+    const newUrl = `${pathname}?${params.toString()}`
+    replace(newUrl)
   }
 
   return (

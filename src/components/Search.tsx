@@ -21,7 +21,8 @@ const Search = () => {
       params.delete('title')
     }
 
-    replace(`${pathname}?${params.toString()}`)
+    const newUrl = `${pathname}?${params.toString()}`
+    replace(newUrl)
     // the URL is updated to /?love if input: love
   }
 
