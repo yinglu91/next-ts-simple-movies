@@ -42,7 +42,10 @@ const HomePage = async ({ searchParams }: Props) => {
 
       <Search />
 
-      {totalMovies > 10 && <Pagination totalPages={totalPages} />}
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+      />
 
       <MovieList movies={movies} />
     </div>
