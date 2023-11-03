@@ -9,7 +9,9 @@ type Props = { totalPages: number; currentPage: number }
 const Pagination = ({ totalPages, currentPage }: Props) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+
   const inputRef = useRef<HTMLInputElement>(null)
+
   const { replace } = useRouter()
 
   useEffect(() => {
@@ -25,9 +27,7 @@ const Pagination = ({ totalPages, currentPage }: Props) => {
     return `${pathname}?${params.toString()}`
   }
 
-  const handleClick = (e: any) => {
-    e.preventDefault()
-
+  const goToInputPage = () => {
     const pageNumber = inputRef.current?.value as string
     const newUrl = createPageURL(pageNumber)
 
@@ -40,11 +40,7 @@ const Pagination = ({ totalPages, currentPage }: Props) => {
       return
     }
 
-    const pageNumber = inputRef.current?.value as string
-    const newUrl = createPageURL(pageNumber)
-
-    console.log('newUrl=', newUrl) // 'newUrl= /?page=20&title=game'
-    replace(newUrl)
+    goToInputPage()
   }
 
   return (
@@ -82,10 +78,9 @@ const Pagination = ({ totalPages, currentPage }: Props) => {
           onKeyUp={handleKeyUp}
           defaultValue={currentPage}
         />
-        <input
+        <button
           type='submit'
-          onClick={handleClick}
-          value='Go'
+          onClick={goToInputPage}
           style={{
             color: '#a1a1a1',
             backgroundColor: '#212426',
@@ -93,7 +88,9 @@ const Pagination = ({ totalPages, currentPage }: Props) => {
             border: '1 solid red',
             marginRight: '20px',
           }}
-        />
+        >
+          Go
+        </button>
         Total page: {totalPages}
       </label>
 
